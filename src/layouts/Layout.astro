@@ -1,4 +1,6 @@
 ---
+import AsideMenu from '../components/AsideMenu.astro';
+
 interface Props {
 	title: string;
 }
@@ -17,35 +19,69 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
-		<slot />
+		<div id="app" class="relative h-screen p-2 gap-2">
+			<aside class="[grid-area:aside] flex-col flex overflow-auto">
+				<AsideMenu/>
+			</aside>
+			<main class="[grid-area:main] rounded-lg bg-zinc-900 overflow-y-auto flex-1">
+				<slot/>
+			</main>
+			<footer class="[grid-area:player] min-h-[100px]">Player</footer>
+		</div>
 	</body>
 </html>
+<style>
+#app{
+	display: grid;
+	grid-template-areas: 
+	"aside main main"
+	"player player player";
+	grid-template-columns: 350px 1fr;
+	grid-template-rows: 1fr auto;
+}
+
+</style>
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
+html{
+	background: #010100;
+	font-family: "CircularStd-Medium" ,system-ui, sans-serif;
+	list-style: none;
+	color: white;
+}
+
+@font-face{
+	font-family: 'CircularStd-Black';
+	src:url(/public/fonts/CircularStd-Black.woff2);
+	font-weight: 900;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face{
+	font-family: 'CircularStd-Bold';
+	src:url(/public/fonts/CircularStd-Bold.woff2);
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face{
+	font-family: 'CircularStd-Book';
+	src:url(/public/fonts/CircularStd-Book.woff2);
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face{
+	font-family: 'CircularStd-Ligth';
+	src:url(/public/fonts/CircularStd-Light.woff2);
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face{
+	font-family: 'CircularStd-Medium';
+	src:url(/public/fonts/CircularStd-Medium.woff2);
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
 </style>
