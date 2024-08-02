@@ -1,5 +1,7 @@
 ---
 import AsideMenu from '../components/AsideMenu.astro';
+import ViewTransitions from 'astro/components/ViewTransitions.astro';
+import { Player } from '../components/Player'
 
 interface Props {
 	title: string;
@@ -17,6 +19,7 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<ViewTransitions fallback='none'/>
 	</head>
 	<body>
 		<div id="app" class="relative h-screen p-2 gap-2">
@@ -26,7 +29,9 @@ const { title } = Astro.props;
 			<main class="[grid-area:main] rounded-lg bg-zinc-900 overflow-y-auto flex-1">
 				<slot/>
 			</main>
-			<footer class="[grid-area:player] min-h-[100px]">Player</footer>
+			<footer class="[grid-area:player] min-h-[100px]">
+				<Player client:load transition:name="media-player" transition:persist />
+			</footer>
 		</div>
 	</body>
 </html>
@@ -51,35 +56,35 @@ html{
 
 @font-face{
 	font-family: 'CircularStd-Black';
-	src:url(/public/fonts/CircularStd-Black.woff2);
+	src:url(/fonts/CircularStd-Black.woff2);
 	font-weight: 900;
 	font-style: normal;
 	font-display: swap;
 }
 @font-face{
 	font-family: 'CircularStd-Bold';
-	src:url(/public/fonts/CircularStd-Bold.woff2);
+	src:url(/fonts/CircularStd-Bold.woff2);
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
 }
 @font-face{
 	font-family: 'CircularStd-Book';
-	src:url(/public/fonts/CircularStd-Book.woff2);
+	src:url(/fonts/CircularStd-Book.woff2);
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
 }
 @font-face{
 	font-family: 'CircularStd-Ligth';
-	src:url(/public/fonts/CircularStd-Light.woff2);
+	src:url(/fonts/CircularStd-Light.woff2);
 	font-weight: 300;
 	font-style: normal;
 	font-display: swap;
 }
 @font-face{
 	font-family: 'CircularStd-Medium';
-	src:url(/public/fonts/CircularStd-Medium.woff2);
+	src:url(/fonts/CircularStd-Medium.woff2);
 	font-weight: 500;
 	font-style: normal;
 	font-display: swap;
